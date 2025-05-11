@@ -11,13 +11,13 @@ services:
       - ./apache/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - 8008:80
-    env_file: .env
+    env_file: www/.env
     depends_on:
       - mysql-db
 
   mysql-db:
     image: mysql:8.0
-    env_file: .env
+    env_file: www/.env
     ports:
       - "33066:3306"
 
@@ -27,4 +27,4 @@ services:
       - mysql-db
     ports:
       - "8009:80"
-    env_file: .env
+    env_file: www/.env
