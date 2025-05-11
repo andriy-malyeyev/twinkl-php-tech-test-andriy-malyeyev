@@ -58,7 +58,7 @@ class EmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage())->line(Str::of('Welcome, ')->append($this->role, ' ', $this->firstName, ' ', $this->lastName, '!'));
+        return (new MailMessage())->line(Str::of('Welcome, ')->append($this->getRoleName(), ' ', $this->firstName, ' ', $this->lastName, '!'));
     }
 
     /**
@@ -72,5 +72,16 @@ class EmailNotification extends Notification
         return [
             //
         ];
+    }
+
+    /**
+     * Retrieve the name of the role based on the provided role or the current role.
+     *
+     * @param string|null $role The specific role, or null to use the current role.
+     * @return string|null The name of the role, or null if not found.
+     */
+    private function getRoleName(string $role = null): ?string
+    {
+        return config('roles.subscription.'.($role ?: $this->role).'.name');
     }
 }

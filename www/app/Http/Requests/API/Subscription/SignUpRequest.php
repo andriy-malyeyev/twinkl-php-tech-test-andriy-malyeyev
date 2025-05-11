@@ -51,7 +51,7 @@ class SignUpRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::in(['student', 'teacher', 'parent', 'private_tutor']),
+                Rule::in(array_keys(config('roles.subscription'))),
             ],
         ];
     }
