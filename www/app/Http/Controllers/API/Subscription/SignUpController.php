@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API\Subscription;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Subscription\SignUpRequest;
 use App\Models\Subscription;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SignUpController extends Controller
@@ -15,16 +15,16 @@ class SignUpController extends Controller
     /**
      * Handles the creation of a new subscription.
      *
-     * @param  Request  $request  The request.
+     * @param  SignUpRequest  $request  The validated request containing subscription details.
      * @return JsonResponse JSON response.
      */
-    public function store(Request $request): JsonResponse
+    public function store(SignUpRequest $request): JsonResponse
     {
         Subscription::create([
-            'first_name' => $request->get('first_name'),
-            'last_name' => $request->get('last_name'),
-            'email' => $request->get('email'),
-            'role' => $request->get('role'),
+            'first_name' => $request->validated('first_name'),
+            'last_name' => $request->validated('last_name'),
+            'email' => $request->validated('email'),
+            'role' => $request->validated('role'),
         ]);
 
         return response()->json([
