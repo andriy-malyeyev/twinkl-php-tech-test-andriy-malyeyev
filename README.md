@@ -47,3 +47,22 @@ a new mounted volume in docker-compose.yml).
 
 XDebug is installed - to use it you will need to set up path mappings in your IDE to 
 point from the location of your local files to the /var folder of the container.
+
+## How to check the tech test
+
+* Clone the Git repository: `git clone git@github.com:andriy-malyeyev/twinkl-php-tech-test-andriy-malyeyev.git`
+* Go to the repo folder: `cd twinkl-php-tech-test-andriy-malyeyev`
+* Run the project: `docker compose up -d`
+* Go to the container by the command: `docker exec -it --user=www-data TwinklTestServer bash`
+* Run the command in the container: `composer install` and `php artisan migrate`
+* Verify if the app works correctly by accessing the page [link](http://localhost:8008)
+* Use the cURL request to create a subscriber: `curl --location 'http://localhost:8008/api/subscription/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name": "Taylor",
+    "last_name": "Otwell",
+    "email": "taylor.otwell@test.test",
+    "role": "student"
+}'`
+* Go to the [PhpMyAdmin](http://localhost:8009) page and check the data in the `subscriptions` table of `test_database` database
+* Modify the request data to test the endpoint validation based on the test requirements above (... IP address of the user is not on a block list, and that the values supplied in the form do not include any special characters.)
